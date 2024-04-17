@@ -14,6 +14,5 @@ def main():
     with tab3:
         aqi_image_prediction_component()
 
-
 if __name__ == "__main__":
     main()
