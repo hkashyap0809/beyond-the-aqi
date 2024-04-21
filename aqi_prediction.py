@@ -11,26 +11,25 @@ def fetch_api_data(city):
     # api_key = 'bb051e7654f0459697a0dd35ca84ad69'
     # api_key = '015423943a4b47b8851fcef8976b304b'
     # Ambee API
-    api_key = 'ad220e078d6771f89706cdcc04c3220f8111455ac5aeeb77708c92df02bb05fc'
+    api_key = 'ad220e078d6771f89706cdcc04c3220f8111455ac5aeeb77708c92df02bb05fc' # Ujjwal
+    # api_key = '' # Harshit
+    # api_key = 'c2b0be9fe23e8cd658b49cdf4031d09b8cdedd166c916a46eb80cc7d5457387a' # Priyank
     # url = f'https://api.weatherbit.io/v2.0/current/airquality?city={city}&key={api_key}'
     url = f'/latest/by-city?city={city}'
     # response = requests.get(url)
     # return response.json()
 
     conn = http.client.HTTPSConnection("api.ambeedata.com")
-
     headers = {
         'x-api-key': api_key,
         'Content-type': "application/json"
     }
 
     conn.request("GET", url, headers=headers)
-
     res = conn.getresponse()
     data = res.read()
 
     response_json = data.decode("utf-8")
-
     parsed_response = json.loads(response_json)
     return parsed_response
 
