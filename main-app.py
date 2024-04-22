@@ -7,12 +7,12 @@ from aqi_prediction import aqi_prediction
 
 def main():
     st.title("BEYOND THE AQI")
-    # tab1, tab2, tab3, tab4 = st.tabs(["AQI DATA", "AQI PREDICTION", "AQI GPT", "IMAGE PREDICTION"])
-    tab1, tab3, tab4 = st.tabs(["AQI DATA", "AQI GPT", "IMAGE PREDICTION"])
+    tab1, tab2, tab3, tab4 = st.tabs(["AQI DATA", "AQI PREDICTION", "AQI GPT", "IMAGE PREDICTION"])
     with tab1:
         aqi_data_component()
-    # with tab2:
-    #     aqi_prediction()
+    with tab2:
+        pass
+        # aqi_prediction()
     with tab3:
         aqi_gpt_component()
     with tab4:
