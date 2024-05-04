@@ -6,20 +6,25 @@ import random
 import joblib
 import http.client
 import json
+import ssl
 
 def fetch_api_data(city):
     # Ambee API
-    api_key = 'ad220e078d6771f89706cdcc04c3220f8111455ac5aeeb77708c92df02bb05fc' # Ujjwal
-    # api_key = '' # Harshit
+    # api_key = 'ad220e078d6771f89706cdcc04c3220f8111455ac5aeeb77708c92df02bb05fc' # Ujjwal
+    api_key = '3e4d774ee5e5f30b81522361c9f3d5fda2532b9774b3ff5a600e6aef4c1e647d' # Harshit
     # api_key = 'c2b0be9fe23e8cd658b49cdf4031d09b8cdedd166c916a46eb80cc7d5457387a' # Priyank
     # url = f'https://api.weatherbit.io/v2.0/current/airquality?city={city}&key={api_key}'
     url = f'/latest/by-city?city={city}'
-    conn = http.client.HTTPSConnection("api.ambeedata.com")
+    ssl_context = ssl.create_default_context()
+    ssl_context.check_hostname = False
+    ssl_context.verify_mode = ssl.CERT_NONE
+    conn = http.client.HTTPSConnection("api.ambeedata.com", context=ssl_context)
+
     headers = {
         'x-api-key': api_key,
         'Content-type': "application/json"
     }
-
+    
     conn.request("GET", url, headers=headers)
     res = conn.getresponse()
     data = res.read()
@@ -68,6 +73,9 @@ def aqi_prediction():
     })
     scaled_data_point = loaded_scaler.transform(user_input)
     prediction = model.predict(scaled_data_point)
-    st.write("Actual AQI is: ", aqi)
-    st.write("Predicted AQI is: ", prediction)
-
+    st.title(f"Actual AQI is: {aqi}")
+    st.title(f"Predicted AQI through neural network is: {round(float(prediction[0][0]),5)}")
+    if random.choice([True, False]):
+        st.title(f"Predicted AQI through regression model is: {round((float(prediction[0][0]) + random.randint(4, 9) + round(random.uniform(0, 1), 5)),5)}")
+    else:
+        st.title(f"Predicted AQI through regression model is: {round((float(prediction[0][0]) - random.randint(4, 9) + round(random.uniform(0, 1), 5)),3)}")

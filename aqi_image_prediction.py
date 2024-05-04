@@ -16,13 +16,13 @@ def predict():
     x = preprocess_input(x)
     p = np.argmax(model.predict(x))
     if p == 0:
-        st.write("Irrelevant data")
+        st.title("Irrelevant data")
     elif p == 1:
-        st.write("Moderate pollution")
+        st.title("Moderate pollution")
     elif p == 2:
-        st.write("No pollution")
+        st.title("No pollution")
     elif p == 3:
-        st.write("Severe pollution")
+        st.title("Severe pollution")
 
 def aqi_image_prediction_component():
     st.title("Image Prediction")
